@@ -1,4 +1,4 @@
-package com.zup.gerenciarImpostos.entity;
+package com.zup.gerenciarImpostos.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
