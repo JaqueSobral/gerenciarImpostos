@@ -1,4 +1,4 @@
-package com.zup.gerenciarImpostos.dtos;
+package com.zup.gerenciarImpostos.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtResponseDto {
-    private String token;
+public class LoginRequest {
+    private String username;
+    private String password;
 }
