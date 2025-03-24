@@ -38,19 +38,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/auth/refresh-token").permitAll();
-                    authorize.requestMatchers(HttpMethod.GET, "/users").permitAll();
-                    authorize.requestMatchers(HttpMethod.POST,"/users/user").permitAll();
-                    authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    authorize.requestMatchers(HttpMethod.GET, "/tipos", "/tipos/{id}");
+                    authorize.requestMatchers(HttpMethod.DELETE, "/tipos/{id}").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST, "/tipos", "/calculo").hasRole("ADMIN");
+                    authorize.requestMatchers(HttpMethod.POST,"/users/user/register", "/users/user/login").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     authorize.anyRequest().authenticated();
                 })
-                .httpBasic(Customizer.withDefaults()) // Configura autenticação básica
+                .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Define política de sessão como stateless (recomendado para APIs REST)
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
