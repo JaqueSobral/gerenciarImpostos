@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImpostoDto {
+public class TipoImpostoResponse {
         private Long id;
-        private String nome;
+        private String name;
         private String descricao;
         private Double aliquota;
 }
